@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.ivogoncalves.ms_customer.infra.exceptions.AttributeValidationException;
+import br.com.ivogoncalves.ms_customer.infra.exceptions.DataIntegrityViolationException;
 import br.com.ivogoncalves.ms_customer.infra.exceptions.ExceptionResponse;
 import br.com.ivogoncalves.ms_customer.infra.exceptions.ResourceNotFoundException;
 
@@ -43,16 +44,21 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ExceptionResponse>(exception,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ExceptionResponse> handleDataIntegrityViolationException(Exception ex, WebRequest request) {
+		ExceptionResponse exception = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(true));
+		return new ResponseEntity<ExceptionResponse>(exception,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
 	public ResponseEntity<ExceptionResponse> handleConstraintViolationException(
 	        jakarta.validation.ConstraintViolationException ex, WebRequest request) {
 
-	    StringBuilder sb = new StringBuilder("Validation error: ");
+	    StringBuilder sb = new StringBuilder("VALIDATION ERROR: ");
 	    ex.getConstraintViolations().forEach(violation -> {
 	        sb.append(violation.getPropertyPath()).append(": ");
 	        sb.append(violation.getMessage()).append("; ");
 	    });
-
 	    ExceptionResponse exception = new ExceptionResponse(new Date(), sb.toString(), request.getDescription(true));
 	    return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
 	}

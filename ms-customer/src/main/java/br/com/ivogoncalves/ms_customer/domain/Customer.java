@@ -17,7 +17,7 @@ public class Customer {
     @Id	
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    @Column(unique = true)
+    @Column
 	private String cpf;
     @Column(nullable = false)
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")

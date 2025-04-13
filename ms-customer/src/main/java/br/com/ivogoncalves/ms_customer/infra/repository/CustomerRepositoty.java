@@ -11,4 +11,6 @@ import br.com.ivogoncalves.ms_customer.domain.Customer;
 public interface CustomerRepositoty extends JpaRepository<Customer, Long> {
 
 	Optional<Customer> findByCpf(String cpf);
+
+	boolean existsByCpf(String cpf);
 }
