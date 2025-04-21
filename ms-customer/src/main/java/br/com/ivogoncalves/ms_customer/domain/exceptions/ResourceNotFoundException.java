@@ -1,4 +1,4 @@
-package br.com.ivogoncalves.ms_customer.infra.exceptions;
+package br.com.ivogoncalves.ms_customer.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

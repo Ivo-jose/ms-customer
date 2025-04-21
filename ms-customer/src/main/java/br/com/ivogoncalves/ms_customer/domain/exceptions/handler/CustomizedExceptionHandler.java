@@ -1,4 +1,4 @@
-package br.com.ivogoncalves.ms_customer.infra.exceptions.handler;
+package br.com.ivogoncalves.ms_customer.domain.exceptions.handler;
 
 import java.util.Date;
 
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.ivogoncalves.ms_customer.infra.exceptions.AttributeValidationException;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.DataIntegrityViolationException;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.ExceptionResponse;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.ResourceNotFoundException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.AttributeValidationException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.DataIntegrityViolationException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.ExceptionResponse;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.ResourceNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 
 /**
  * CustomizedExceptionHandler
@@ -50,9 +51,9 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ExceptionResponse>(exception,HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ExceptionResponse> handleConstraintViolationException(
-	        jakarta.validation.ConstraintViolationException ex, WebRequest request) {
+	        ConstraintViolationException ex, WebRequest request) {
 
 	    StringBuilder sb = new StringBuilder("VALIDATION ERROR: ");
 	    ex.getConstraintViolations().forEach(violation -> {

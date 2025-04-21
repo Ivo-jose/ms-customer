@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ivogoncalves.ms_customer.domain.Customer;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.AttributeValidationException;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.DataIntegrityViolationException;
-import br.com.ivogoncalves.ms_customer.infra.exceptions.ResourceNotFoundException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.AttributeValidationException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.DataIntegrityViolationException;
+import br.com.ivogoncalves.ms_customer.domain.exceptions.ResourceNotFoundException;
 import br.com.ivogoncalves.ms_customer.infra.repository.CustomerRepositoty;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +20,8 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepositoty repository;
 	
-	
 	public Customer findByCpf(String cpf) {
-		log.info("Finding customer by CPF: {}", cpf);
+		log.info("Finding customer by CPF: {} -- PORT: {{}}", cpf);
 		checkFormatCpf(cpf);
 		Optional<Customer> optional = repository.findByCpf(cpf);
 		Customer customer = optional.orElseThrow(() -> new ResourceNotFoundException("Customer CPF not found! CPF: " + cpf));

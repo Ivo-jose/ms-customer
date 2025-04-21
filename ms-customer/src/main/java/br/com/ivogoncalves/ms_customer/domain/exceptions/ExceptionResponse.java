@@ -1,4 +1,4 @@
-package br.com.ivogoncalves.ms_customer.infra.exceptions;
+package br.com.ivogoncalves.ms_customer.domain.exceptions;
 
 
 
