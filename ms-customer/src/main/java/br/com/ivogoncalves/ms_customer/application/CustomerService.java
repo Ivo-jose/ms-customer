@@ -43,7 +43,7 @@ public class CustomerService {
 	
 	// Auxiliary method to check the format of the CPF
 	private void checkFormatCpf(String cpf) {
-		if(!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}"))
+		if(!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}") || cpf == null)
 			throw new AttributeValidationException("Invalid CPF format! Expected format: XXX.XXX.XXX-XX");
 	}
 }
