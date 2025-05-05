@@ -3,6 +3,7 @@ package br.com.ivogoncalves.ms_customer.application;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import br.com.ivogoncalves.ms_customer.domain.Customer;
@@ -19,9 +20,12 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerRepositoty repository;
+	@Autowired
+	private Environment env;
+	
 	
 	public Customer findByCpf(String cpf) {
-		log.info("Finding customer by CPF: {} -- PORT: {{}}", cpf);
+		log.info("Finding customer by CPF: {} -- PORT: {}", cpf, env.getProperty("local.server.port"));
 		checkFormatCpf(cpf);
 		Optional<Customer> optional = repository.findByCpf(cpf);
 		Customer customer = optional.orElseThrow(() -> new ResourceNotFoundException("Customer CPF not found! CPF: " + cpf));
